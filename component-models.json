@@ -157,13 +157,6 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "tagline",
-        "value": "",
-        "label": "Tag Line",
-        "valueType": "string"
       }
     ]
   },
@@ -223,60 +216,40 @@
     ]
   },
   {
-    "id": "stat-item",
+    "id": "teaser",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
-        "name": "value",
-        "label": "Value",
-        "value": ""
+        "name": "image",
+        "label": "Image",
+        "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "label",
-        "label": "Label",
-        "value": ""
-      }
-    ]
-  },
-  {
-    "id": "stats",
-    "fields": [
-      {
-        "component": "multiselect",
-        "name": "classes",
-        "label": "Style",
-        "options": [
-          {
-            "name": "Dark",
-            "value": "dark"
-          },
-          {
-            "name": "Compact",
-            "value": "compact"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "quote",
-    "fields": [
+        "name": "imageAlt",
+        "label": "Image alt text",
+        "required": true
+      },
       {
         "component": "richtext",
-        "name": "quote",
-        "value": "",
-        "label": "Quote",
+        "name": "textContent_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "textContent_cta",
+        "label": "CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "valueType": "string",
-        "name": "author",
-        "label": "Author",
-        "value": ""
+        "name": "textContent_ctaText",
+        "label": "CTA label",
+        "valueType": "string"
       }
     ]
   }
