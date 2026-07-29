@@ -1,3 +1,4 @@
+/* existing styles */
 .stats {
   display: flex;
   flex-wrap: wrap;
@@ -7,22 +8,25 @@
   background-color: #f4f4f4;
 }
 
-.stats-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-width: 120px;
+/* dark variant */
+.stats.dark {
+  background-color: #1a1a1a;
 }
 
-.stats-value {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #0070f3;
+.stats.dark .stats-value {
+  color: #fff;
 }
 
-.stats-label {
-  font-size: 0.95rem;
-  color: #555;
-  margin-top: 0.25rem;
+.stats.dark .stats-label {
+  color: #aaa;
+}
+
+/* compact variant */
+.stats.compact {
+  padding: 1.5rem 1rem;
+  gap: 1rem;
+}
+
+.stats.compact .stats-value {
+  font-size: 1.75rem;
 }

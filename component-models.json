@@ -242,6 +242,26 @@
     ]
   },
   {
+    "id": "stats",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "options": [
+          {
+            "name": "Dark",
+            "value": "dark"
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "quote",
     "fields": [
       {
