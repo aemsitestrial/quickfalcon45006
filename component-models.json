@@ -240,5 +240,24 @@
         "value": ""
       }
     ]
+  },
+  {
+    "id": "stat-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "value",
+        "label": "Value",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+      }
+    ]
   }
 ]
