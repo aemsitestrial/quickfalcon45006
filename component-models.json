@@ -157,6 +157,13 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "tagline",
+        "value": "",
+        "label": "Tag Line",
+        "valueType": "string"
       }
     ]
   },
@@ -250,6 +257,64 @@
         "name": "textContent_ctaText",
         "label": "CTA label",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "stat-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "value",
+        "label": "Value",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "stats",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "options": [
+          {
+            "name": "Dark",
+            "value": "dark"
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "quote",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "quote",
+        "value": "",
+        "label": "Quote",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author",
+        "value": ""
       }
     ]
   }
