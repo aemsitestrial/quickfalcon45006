@@ -15,7 +15,9 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "stats",
+      "quote"
     ]
   },
   {
@@ -38,5 +40,9 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "stats",
+    "components": ["stat-item"]
   }
 ]
