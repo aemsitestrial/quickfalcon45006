@@ -48,6 +48,13 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "tagline",
+          "value": "",
+          "label": "Tag Line",
+          "valueType": "string"
         }
       ]
     }
