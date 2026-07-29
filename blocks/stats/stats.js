@@ -1,21 +1,10 @@
 export default function decorate(block) {
-  const stats = [...block.children].map((row) => {
+  [...block.children].forEach((row) => {
     const [valueCell, labelCell] = [...row.children];
-    return {
-      value: valueCell?.innerHTML ?? '',
-      label: labelCell?.innerHTML ?? '',
-    };
-  });
 
-  block.innerHTML = '';
+    row.classList.add('stats-item');
 
-  stats.forEach(({ value, label }) => {
-    const item = document.createElement('div');
-    item.className = 'stats-item';
-    item.innerHTML = `
-      <span class="stats-value">${value}</span>
-      <span class="stats-label">${label}</span>
-    `;
-    block.appendChild(item);
+    if (valueCell) valueCell.classList.add('stats-value');
+    if (labelCell) labelCell.classList.add('stats-label');
   });
 }
