@@ -22,9 +22,36 @@
     ]
   },
   {
+    "id": "accordion-guide",
+    "components": [
+      "accordion-guide-item"
+    ]
+  },
+  {
+    "id": "cards-promo",
+    "components": [
+      "card-promo"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "columns-contact",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
     ]
   },
   {

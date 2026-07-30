@@ -1,0 +1,63 @@
+/* Contact banner: dark maroon background (matches source), light text. */
+.columns-contact {
+  background-color: #b0000f;
+  padding: 40px 24px;
+}
+
+.columns-contact,
+.columns-contact h1,
+.columns-contact h2,
+.columns-contact h3,
+.columns-contact p {
+  color: var(--background-color);
+}
+
+/* CTA rendered as a light button against the dark banner. */
+.columns-contact a {
+  display: inline-block;
+  background-color: var(--background-color);
+  color: var(--dark-color);
+  padding: 12px 28px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.columns-contact a:hover {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+.columns-contact > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-contact img {
+  width: 100%;
+}
+
+.columns-contact > div > div {
+  order: 1;
+}
+
+.columns-contact > div > .columns-contact-img-col {
+  order: 0;
+}
+
+.columns-contact > div > .columns-contact-img-col img {
+  display: block;
+}
+
+@media (width >= 900px) {
+  .columns-contact > div {
+    align-items: center;
+    flex-direction: unset;
+    gap: 24px;
+  }
+
+  .columns-contact > div > div {
+    flex: 1;
+    order: unset;
+  }
+}
