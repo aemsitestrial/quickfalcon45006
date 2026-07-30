@@ -277,6 +277,18 @@ main .section.highlight {
   padding: 40px 0;
 }
 
+/* Dark sections: dark background with light text for readable contrast. */
+main .section.dark {
+  background-color: var(--dark-color);
+  margin: 0;
+  padding: 40px 0;
+}
+
+main .section.dark,
+main .section.dark :where(h1, h2, h3, h4, p, a) {
+  color: var(--background-color);
+}
+
 /* WKND Branding */
 h2 {
   font-size: var(--heading-font-size-xl); /* Set font size for h2 */

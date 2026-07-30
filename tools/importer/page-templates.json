@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "projectType": "xwalk"
+  },
+  "templates": [
+    {
+      "name": "residential-tips",
+      "urls": [
+        "https://co.my.xcelenergy.com/s/residential/tips"
+      ],
+      "representativeUrl": "https://co.my.xcelenergy.com/s/residential/tips",
+      "coverageGaps": [],
+      "description": "Xcel Energy residential informational page with hero, text-block tips, accordion guide, promo cards grid, callout, and contact banner",
+      "blocks": [
+        {
+          "name": "hero",
+          "instances": ["c-xeg-hero-v2"]
+        },
+        {
+          "name": "accordion-guide",
+          "instances": ["c-xeg-expand-collapse-v2"]
+        },
+        {
+          "name": "cards-promo",
+          "instances": ["c-xeg-featured-content-v2"]
+        },
+        {
+          "name": "columns-contact",
+          "instances": ["c-xeg-contact-support"]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1-hero",
+          "name": "Hero",
+          "selector": "c-xeg-hero-v2",
+          "style": null,
+          "blocks": ["hero"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2-quick-tips",
+          "name": "Quick Ways to Save",
+          "selector": "c-xeg-content-text-block-v2",
+          "style": null,
+          "blocks": [],
+          "defaultContent": ["c-xeg-content-text-block-v2"]
+        },
+        {
+          "id": "section-3-next-level",
+          "name": "Next-Level Energy Saving",
+          "selector": "c-xeg-expand-collapse-v2",
+          "style": null,
+          "blocks": ["accordion-guide"],
+          "defaultContent": ["c-xeg-expand-collapse-v2 h2", "c-xeg-expand-collapse-v2 p"]
+        },
+        {
+          "id": "section-4-more-ways",
+          "name": "Even More Ways to Save",
+          "selector": "c-xeg-featured-content-v2",
+          "style": "highlight",
+          "blocks": ["cards-promo"],
+          "defaultContent": ["c-xeg-featured-content-v2 h2"]
+        },
+        {
+          "id": "section-5-assistance",
+          "name": "Energy Assistance Resources",
+          "selector": "c-xeg-call-to-action",
+          "style": "highlight",
+          "blocks": [],
+          "defaultContent": ["c-xeg-call-to-action"]
+        },
+        {
+          "id": "section-6-contact",
+          "name": "Contact Customer Service",
+          "selector": "c-xeg-contact-support",
+          "style": "dark",
+          "blocks": ["columns-contact"],
+          "defaultContent": []
+        }
+      ]
+    }
+  ]
+}

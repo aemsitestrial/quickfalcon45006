@@ -1,0 +1,37 @@
+{
+  "variantName": "columns-contact",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-07-30T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://co.my.xcelenergy.com/s/residential/tips",
+    "originPage": "Energy Saving Tips residential landing page",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "compact",
+    "purpose": "contact",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "heading + paragraph | CTA button",
+    "buttonCount": 1,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "contact/customer-service banners with text on one side and a CTA on the other",
+      "two-column dark-themed call-to-action strips"
+    ],
+    "notSuitableFor": [
+      "repeating item grids (use cards)",
+      "image-heavy multi-column layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/s/residential/tips"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-30T00:00:00.000Z"
+  }
+}
