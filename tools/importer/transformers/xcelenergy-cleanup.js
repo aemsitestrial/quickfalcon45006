@@ -89,5 +89,40 @@ export default function transform(hookName, element, payload) {
       el.removeAttribute('data-di-res-id');
       el.removeAttribute('data-di-rand');
     });
+
+    // Remove trailing runtime-widget artifacts that leak into the page body:
+    //   - a stray paragraph containing only backtick(s) (from #sf-aria-live / icon defs)
+    //   - the "Feedback" survey-widget button/label
+    // These are lazy-injected by JS, so they only appear in the live-rendered
+    // DOM (not cleaned.html) and must be pruned here to survive re-imports.
+    element.querySelectorAll('p, span, div, button, a').forEach((el) => {
+      if (el.children.length > 0) return; // leaf elements only
+      const text = (el.textContent || '').trim();
+      if (/^`+$/.test(text) || text === 'Feedback') {
+        el.remove();
+      }
+    });
+
+    // Brand rename: "Xcel" -> "X" in visible TEXT ONLY. Walking text nodes means
+    // href/src attributes (e.g. xcelenergy.com URLs) are never touched, so links
+    // keep working. Also rename the document title, which feeds page metadata.
+    const walker = payload.document.createTreeWalker(element, 4 /* SHOW_TEXT */);
+    const textNodes = [];
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) textNodes.push(n);
+    textNodes.forEach((node) => {
+      // Drop loose backtick-only text nodes. WebImporter wraps bare text into a
+      // <p> later, so at this stage the "``" artifact is still a raw text node
+      // that the element-based prune above cannot see.
+      if (/^`+$/.test((node.nodeValue || '').trim())) {
+        node.remove();
+        return;
+      }
+      if (node.nodeValue && node.nodeValue.includes('Xcel')) {
+        node.nodeValue = node.nodeValue.replace(/Xcel/g, 'X');
+      }
+    });
+    if (payload.document.title && payload.document.title.includes('Xcel')) {
+      payload.document.title = payload.document.title.replace(/Xcel/g, 'X');
+    }
   }
 }

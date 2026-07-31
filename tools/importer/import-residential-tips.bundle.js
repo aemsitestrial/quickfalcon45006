@@ -260,6 +260,32 @@ var CustomImportScript = (() => {
         el.removeAttribute("data-di-res-id");
         el.removeAttribute("data-di-rand");
       });
+      element.querySelectorAll("p, span, div, button, a").forEach((el) => {
+        if (el.children.length > 0) return;
+        const text = (el.textContent || "").trim();
+        if (/^`+$/.test(text) || text === "Feedback") {
+          el.remove();
+        }
+      });
+      const walker = payload.document.createTreeWalker(
+        element,
+        4
+        /* SHOW_TEXT */
+      );
+      const textNodes = [];
+      for (let n = walker.nextNode(); n; n = walker.nextNode()) textNodes.push(n);
+      textNodes.forEach((node) => {
+        if (/^`+$/.test((node.nodeValue || "").trim())) {
+          node.remove();
+          return;
+        }
+        if (node.nodeValue && node.nodeValue.includes("Xcel")) {
+          node.nodeValue = node.nodeValue.replace(/Xcel/g, "X");
+        }
+      });
+      if (payload.document.title && payload.document.title.includes("Xcel")) {
+        payload.document.title = payload.document.title.replace(/Xcel/g, "X");
+      }
     }
   }
 
