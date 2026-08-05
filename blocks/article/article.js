@@ -6,15 +6,13 @@ const AEM_PUBLISH = 'http://localhost:4503';
 
 /**
  * Fetches a single Content Fragment via a GraphQL persisted query.
- * Requires a persisted query named "article-by-path" under your GraphQL config.
- * Example query:
- *   { articleByPath(_path: $path) { item { title publishDate description { html } image { _path } } } }
+ * Requires a persisted query named "articleList" under the "quickfalcon" GraphQL config.
  *
  * @param {string} cfPath - DAM path, e.g. /content/dam/quickfalcon/article1
  * @returns {Object|null} The CF item from the GraphQL response
  */
 async function fetchArticle(cfPath) {
-  const url = `${AEM_PUBLISH}/graphql/execute.json/my-config/article-by-path;path=${cfPath}`;
+  const url = `${AEM_PUBLISH}/graphql/execute.json/quickfalcon-endpoint/articleList;path=${cfPath}`;
   const response = await fetch(url, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
@@ -48,7 +46,9 @@ export default async function decorate(block) {
   const article = await fetchArticle(cfPath);
   if (!article) return;
 
-  const { title, publishDate, description, image } = article;
+  const {
+    title, publishDate, description, image,
+  } = article;
 
   if (title) {
     const h2 = document.createElement('h2');
@@ -57,10 +57,10 @@ export default async function decorate(block) {
     block.append(h2);
   }
 
-  if (image?._path) {
+  if (image?.path) {
     const wrapper = document.createElement('div');
     wrapper.className = 'article-image';
-    const picture = createOptimizedPicture(image._path, title ?? '', false, [{ width: '750' }]);
+    const picture = createOptimizedPicture(image.path, title ?? '', false, [{ width: '750' }]);
     wrapper.append(picture);
     block.append(wrapper);
   }
