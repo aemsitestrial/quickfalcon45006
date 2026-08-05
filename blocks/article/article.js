@@ -1,65 +1,82 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
+// Replace with your actual AEM Cloud publish URL.
+// For local dev via `aem up`, use 'http://localhost:4502' instead.
+const AEM_PUBLISH = 'http://localhost:4503';
+
 /**
- * Fetches a Content Fragment via the AEM Assets REST API.
+ * Fetches a single Content Fragment via a GraphQL persisted query.
+ * Requires a persisted query named "article-by-path" under your GraphQL config.
+ * Example query:
+ *   { articleByPath(_path: $path) { item { title publishDate description { html } image { _path } } } }
+ *
  * @param {string} cfPath - DAM path, e.g. /content/dam/quickfalcon/article1
- * @returns {Object|null} CF element values keyed by field name
+ * @returns {Object|null} The CF item from the GraphQL response
  */
-async function fetchContentFragment(cfPath) {
-  // Strip /content/dam to get the Assets API path
-  const apiPath = `/api/assets${cfPath.replace('/content/dam', '')}.json`;
-  const resp = await fetch(apiPath);
-  if (!resp.ok) return null;
-  const json = await resp.json();
-  return json?.properties?.elements ?? null;
+async function fetchArticle(cfPath) {
+  const url = `${AEM_PUBLISH}/graphql/execute.json/my-config/article-by-path;path=${cfPath}`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    // eslint-disable-next-line no-console
+    console.warn(`[article] GraphQL fetch failed: ${response.status} — ${url}`);
+    return null;
+  }
+
+  const { data } = await response.json();
+  return data?.articleByPath?.item ?? null;
 }
 
 export default async function decorate(block) {
-  // The block holds the CF path set by the Universal Editor
-  const cfPath = block.querySelector(':scope > div > div')?.textContent?.trim();
-  if (!cfPath) return;
+  // aem-content fields render as <a href="/content/dam/..."> in the block HTML
+  const link = block.querySelector(':scope > div > div > a');
+  const cfPath = link
+    ? link.getAttribute('href')
+    : block.querySelector(':scope > div > div')?.textContent?.trim();
 
-  // Clear the raw path cell while we load
+  if (!cfPath) {
+    // eslint-disable-next-line no-console
+    console.warn('[article] No CF path found in block');
+    return;
+  }
+
   block.innerHTML = '';
 
-  const elements = await fetchContentFragment(cfPath);
-  if (!elements) return;
+  const article = await fetchArticle(cfPath);
+  if (!article) return;
 
-  const { title, image, imageAlt, description, publishDate } = elements;
+  const { title, publishDate, description, image } = article;
 
-  // Title
-  if (title?.value) {
+  if (title) {
     const h2 = document.createElement('h2');
     h2.className = 'article-title';
-    h2.textContent = title.value;
+    h2.textContent = title;
     block.append(h2);
   }
 
-  // Image
-  if (image?.value) {
+  if (image?._path) {
     const wrapper = document.createElement('div');
     wrapper.className = 'article-image';
-    const alt = imageAlt?.value ?? '';
-    const picture = createOptimizedPicture(image.value, alt, false, [{ width: '750' }]);
+    const picture = createOptimizedPicture(image._path, title ?? '', false, [{ width: '750' }]);
     wrapper.append(picture);
     block.append(wrapper);
   }
 
-  // Description
-  if (description?.value) {
+  if (description?.html) {
     const div = document.createElement('div');
     div.className = 'article-description';
-    // value may be plain text or HTML depending on the CF field type
-    div.innerHTML = description.value;
+    div.innerHTML = description.html;
     block.append(div);
   }
 
-  // Publish date
-  if (publishDate?.value) {
+  if (publishDate) {
     const time = document.createElement('time');
     time.className = 'article-date';
-    time.dateTime = publishDate.value;
-    time.textContent = new Date(publishDate.value).toLocaleDateString(undefined, {
+    time.dateTime = publishDate;
+    time.textContent = new Date(publishDate).toLocaleDateString(undefined, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
