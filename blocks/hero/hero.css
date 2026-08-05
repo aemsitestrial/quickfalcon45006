@@ -5,18 +5,39 @@
 
 .hero {
   position: relative;
-  display: flex;
-  align-items: stretch;
-  padding: 0;
+  padding: 40px 24px;
   min-height: 300px;
-  overflow: hidden;
 }
 
-/* Photo always fills the whole hero as the background, behind the text panel. */
-.hero > div:has(picture) {
+/* Hero sits over a full-bleed background image (typically dark), so all
+   hero text uses the light background color for legible contrast. */
+.hero,
+.hero h1,
+.hero h2,
+.hero h3,
+.hero p,
+.hero a {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--background-color);
+}
+
+.hero picture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+/* Dark scrim over the background image so light text stays readable
+   regardless of how bright parts of the photo are. */
+.hero picture::after {
+  content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
+  background: linear-gradient(90deg, rgb(0 0 0 / 55%) 0%, rgb(0 0 0 / 25%) 100%);
 }
 
 .hero img {
@@ -25,39 +46,8 @@
   height: 100%;
 }
 
-/* Text always sits ON TOP of the image, inside a solid dark maroon panel
-   (matching the source brand color) on the left. The photo stays visible to
-   the right of the panel at every screen size. */
-.hero > div:not(:has(picture)) {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 66%;
-  background-color: #2b1414;
-  padding: 28px 22px;
-  box-sizing: border-box;
-}
-
-.hero,
-.hero h1,
-.hero h2,
-.hero h3,
-.hero p,
-.hero a {
-  color: var(--background-color);
-}
-
 @media (width >= 900px) {
   .hero {
-    min-height: 340px;
-  }
-
-  /* On wider screens the panel narrows to the left ~48%, showing more photo. */
-  .hero > div:not(:has(picture)) {
-    width: 48%;
-    min-width: 420px;
-    padding: 48px 40px 48px 32px;
+    padding: 40px 32px;
   }
 }
