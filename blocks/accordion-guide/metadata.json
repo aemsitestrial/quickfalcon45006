@@ -1,0 +1,37 @@
+{
+  "variantName": "accordion-guide",
+  "baseBlock": "accordion",
+  "version": "1.0.0",
+  "created": "2026-07-30T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://co.my.xcelenergy.com/s/residential/tips",
+    "originPage": "Energy Saving Tips residential landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "faq",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "icon + title (collapsible) + body",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "deep-dive guide sections with expandable topics",
+      "FAQ-style collapsible content on light backgrounds"
+    ],
+    "notSuitableFor": [
+      "content that should always be visible without interaction",
+      "tabbed content switchers"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/s/residential/tips"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-30T00:00:00.000Z"
+  }
+}

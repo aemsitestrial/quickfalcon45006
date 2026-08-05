@@ -1,0 +1,37 @@
+{
+  "variantName": "cards-promo",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-30T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://co.my.xcelenergy.com/s/residential/tips",
+    "originPage": "Energy Saving Tips residential landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "grey",
+    "density": "spacious",
+    "purpose": "feature",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "icon + heading + description + CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "promotional 3-up feature grids with icons",
+      "sets of related callouts each ending in a CTA link"
+    ],
+    "notSuitableFor": [
+      "single feature highlights",
+      "text-only card sets (use a no-images variant)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/s/residential/tips"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-30T00:00:00.000Z"
+  }
+}

@@ -1,15 +1,15 @@
 {
   "definitions": [
     {
-      "title": "Hero",
-      "id": "hero",
+      "title": "Hero Dark",
+      "id": "hero-dark",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Hero",
-              "model": "hero"
+              "name": "Hero Dark",
+              "model": "hero-dark"
             }
           }
         }
@@ -18,10 +18,10 @@
   ],
   "models": [
     {
-      "id": "hero",
+      "id": "hero-dark",
       "fields": [
         {
-          "component": "richtext",
+          "component": "reference",
           "valueType": "string",
           "name": "image",
           "label": "Image",
