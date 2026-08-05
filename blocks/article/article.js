@@ -1,8 +1,8 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
-// Replace with your actual AEM Cloud publish URL.
-// For local dev via `aem up`, use 'http://localhost:4502' instead.
-const AEM_PUBLISH = 'http://localhost:4503';
+const AEM_PUBLISH = 'http://localhost:4502';
+// Basic auth credentials for AEM author. Remove for publish (anonymous access).
+const AEM_CREDENTIALS = btoa('admin:admin');
 
 /**
  * Fetches a single Content Fragment via a GraphQL persisted query.
@@ -11,11 +11,14 @@ const AEM_PUBLISH = 'http://localhost:4503';
  * @param {string} cfPath - DAM path, e.g. /content/dam/quickfalcon/article1
  * @returns {Object|null} The CF item from the GraphQL response
  */
-async function fetchArticle(cfPath) {
-  const url = `${AEM_PUBLISH}/graphql/execute.json/quickfalcon-endpoint/articleList;path=${cfPath}`;
+async function fetchArticle() {
+  const url = `${AEM_PUBLISH}/graphql/execute.json/quickfalcon/articleList`;
   const response = await fetch(url, {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${AEM_CREDENTIALS}`,
+    },
   });
 
   if (!response.ok) {
@@ -25,7 +28,7 @@ async function fetchArticle(cfPath) {
   }
 
   const { data } = await response.json();
-  return data?.articleByPath?.item ?? null;
+  return data?.articleModelList?.items?.[0] ?? null;
 }
 
 export default async function decorate(block) {
@@ -43,7 +46,7 @@ export default async function decorate(block) {
 
   block.innerHTML = '';
 
-  const article = await fetchArticle(cfPath);
+  const article = await fetchArticle();
   if (!article) return;
 
   const {
@@ -57,18 +60,20 @@ export default async function decorate(block) {
     block.append(h2);
   }
 
-  if (image?.path) {
+  // image._path is not returned by the current persisted query.
+  // Add _path to the image selection in GraphiQL to enable image rendering.
+  if (image?._path) {
     const wrapper = document.createElement('div');
     wrapper.className = 'article-image';
-    const picture = createOptimizedPicture(image.path, title ?? '', false, [{ width: '750' }]);
+    const picture = createOptimizedPicture(image._path, title ?? '', false, [{ width: '750' }]);
     wrapper.append(picture);
     block.append(wrapper);
   }
 
-  if (description?.html) {
+  if (description) {
     const div = document.createElement('div');
     div.className = 'article-description';
-    div.innerHTML = description.html;
+    div.textContent = description;
     block.append(div);
   }
 
